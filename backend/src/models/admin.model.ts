@@ -6,6 +6,6 @@ interface adminDocument extends adminModel, mongoose.Document {}
 export const Admin = mongoose.model<adminDocument>('Admin', new mongoose.Schema({
     email: { type: String, required: true },
     password: { type: String, required: true },
-    role: { type: String, required: true },
+    role: { type: String, required: true, enum: ['ADMIN', 'SUPERADMIN']},
     departmentId: { type: String }
 }, { timestamps: true}));

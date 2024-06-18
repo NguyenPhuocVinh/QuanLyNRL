@@ -23,7 +23,7 @@ export type RegisterAdminRequest = {
     email: string;
     password: string;
     role?: string;
-    departmentId: ObjectId;
+    departmentId?: ObjectId;
 }
 
 export type LoginAdminRequest = {
