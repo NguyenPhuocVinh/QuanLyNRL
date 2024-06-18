@@ -11,7 +11,7 @@ export class SystemController {
     static async registerAdmin( req: Request, res: Response ) {
         try {
             const registerAdminRequest: RegisterAdminRequest = req.body;
-            if (!registerAdminRequest.email || !registerAdminRequest.password || !registerAdminRequest.departmentId) {
+            if (!registerAdminRequest.email || !registerAdminRequest.password ) {
                 throw new ApiError(StatusCodes.BAD_REQUEST, 'Missing required fields');
             }
             const admin = await SystemService.registerAdmin(registerAdminRequest);
