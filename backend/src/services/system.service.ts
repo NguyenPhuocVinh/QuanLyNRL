@@ -72,7 +72,11 @@ export class SystemService {
 
     static async getAllUser() {
         const users = await User.find();
-        return users;
+        const infoData = getInfoData({
+            filed: ['_id', 'MSSV', 'fullName', 'email', 'point', 'createdAt'],
+            object: users
+        });
+        return infoData;
     }
 
 }
