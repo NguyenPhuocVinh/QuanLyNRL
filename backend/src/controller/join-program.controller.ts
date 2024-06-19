@@ -7,9 +7,9 @@ import { UserService } from '../services/user.service';
 export class JoinProgramController {
     static async createJoinProgram ( req: Request, res: Response ) {
         try {
-            const userId = req.user._id;
+            const MSSV = req.body.MSSV as String;
             const programId = req.query.programId;
-            const joinProgram = await JoinProgramService.createJoinProgram(userId, programId);
+            const joinProgram = await JoinProgramService.createJoinProgram(MSSV, programId);
             return res.status(StatusCodes.CREATED).json(joinProgram);
         } catch (error: any) {
             res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message})
@@ -58,8 +58,7 @@ export class JoinProgramController {
 
     static async getJoinProgramByMSSV ( req: Request, res: Response ) {
         try {
-            const userId = req.user._id;
-            const MSSV = await UserService.getMSSVByUserId(userId);
+            const MSSV = req.query.MSSV as String;
             const joinProgram = await JoinProgramService.getJoinProgramByMSSV(MSSV);
             return res.status(StatusCodes.OK).json(joinProgram);
         } catch (error: any) {

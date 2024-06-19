@@ -28,7 +28,7 @@ export class UserController {
 
     static async changePassword (req: Request, res: Response) {
         try {
-            const userId = req.user;
+            const userId = req.user._id;
             const changePasswordRequest: ChangePasswordRequest = req.body;
             const result = await UserService.changePassword(userId, changePasswordRequest);
             res.status(StatusCodes.OK).json(result);

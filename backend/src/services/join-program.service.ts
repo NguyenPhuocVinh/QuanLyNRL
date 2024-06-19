@@ -6,8 +6,7 @@ import { ProgramService } from './program.service';
 import { getInfoData } from '../utils/filter.util';
 
 export class JoinProgramService {
-    static async createJoinProgram(userId: any, programId: any) {
-        const MSSV = await UserService.getMSSVByUserId(userId);
+    static async createJoinProgram(MSSV: String, programId: any) {
 
         const checkJoined = await JoinProgram.findOne({ programId, MSSV });
         if (checkJoined) {
