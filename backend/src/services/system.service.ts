@@ -72,10 +72,11 @@ export class SystemService {
 
     static async getAllUser() {
         const users = await User.find();
-        const infoData = getInfoData({
+        const infoData = users.map((user) => getInfoData({
             filed: ['_id', 'MSSV', 'fullName', 'email', 'point', 'createdAt'],
-            object: users
-        });
+            object: user.toObject() // Convert mongoose document to plain JavaScript object
+        }));
+
         return infoData;
     }
 
