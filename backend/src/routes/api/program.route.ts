@@ -9,8 +9,10 @@ programRouter.post('/create-program', checkPermission([ROLE_LIST.SUPERADMIN, ROL
 programRouter.post('/join-program', JoinProgramController.createJoinProgram);
 programRouter.get('/get-all-program', ProgramController.getPrograms);
 programRouter.get('/get-program', ProgramController.getProgramById);
+programRouter.get('/get-programs-by-status', ProgramController.getProgramsByStatus);
 programRouter.put('/update-program', checkPermission([ROLE_LIST.ADMIN]), ProgramController.updateProgram);
 programRouter.put('/approve-program', checkPermission([ROLE_LIST.SUPERADMIN]), ProgramController.approveProgram);
+
 
 
 export default programRouter;

@@ -12,3 +12,9 @@ export interface programModel {
     categoryId: ObjectId,
     // createdAt: Date,
 }
+
+export type ProgramStatus = {
+    PENDING: 'PENDING',
+    APPROVED: 'APPROVED',
+    REJECTED: 'REJECTED'
+}

@@ -10,7 +10,7 @@ export const Program = mongoose.model<programDocument>('Program', new mongoose.S
     startDate: { type: Date, required: true },
     registerDate: { type: Date, required: true },
     point: { type: Number, required: true },
-    status: { type: String, default: 'PENDING', enum: ['PENDING', 'APPROVED', 'NOT_APPROVE'] },
+    status: { type: String, default: 'PENDING', enum: ['PENDING', 'APPROVED', 'REJECTED'] },
     minusPoint: { type: Boolean, required: true },
     categoryId: { type: mongoose.Schema.Types.ObjectId, ref: 'Category' },
 }, { timestamps: true}));

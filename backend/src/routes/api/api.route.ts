@@ -6,6 +6,7 @@ import facultyRouter from './faculty.route';
 import programRouter from './program.route';
 import categoryRouter from './category.route';
 import userRouter from './user.route';
+import joinProgramRouter from './join-program.route';
 
 const apiRouter = express.Router();
 
@@ -15,5 +16,6 @@ apiRouter.use('/faculty', authMiddleware, facultyRouter);
 apiRouter.use('/program', authMiddleware, programRouter);
 apiRouter.use('/category', authMiddleware, categoryRouter);
 apiRouter.use('/user', userRouter);
+apiRouter.use('/join-program', authMiddleware, joinProgramRouter);
 
 export default apiRouter;

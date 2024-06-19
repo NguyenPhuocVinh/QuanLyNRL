@@ -65,4 +65,25 @@ export class ProgramService {
         }
         return programs;
     }
+
+    static async joinProgram(programId: any) {
+        const program = await Program.findById(programId) as programModel;
+        if (!program) {
+            throw new ApiError(StatusCodes.NOT_FOUND, 'Program not found');
+        }
+        if (program.quantity === '0' ) {
+            throw new ApiError(StatusCodes.BAD_REQUEST, 'Quantity is enough');
+        }
+        program.quantity = (parseInt(program.quantity) - 1).toString();
+
+        return await Program.updateOne({ _id: programId }, { quantity: program.quantity });
+    }
+
+    static async getPointProgram(programId: any) {
+        const program = await Program.findById(programId);
+        if (!program) {
+            throw new ApiError(StatusCodes.NOT_FOUND, 'Program not found');
+        }
+        return program.point;
+    }
 }

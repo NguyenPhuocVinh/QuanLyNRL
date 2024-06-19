@@ -1,11 +1,11 @@
 import { Request, Response } from 'express';
+import fs from 'fs';
 import { StatusCodes } from 'http-status-codes';
 import { ProgramService } from '../services/program.service';
 import { CreateProgramRequest } from '../types/request.type';
 import { ApiError } from '../utils/api-error.util';
-import { programModel } from '../types/program.type';
 import { singleUpload } from '../utils/upload.util';
-import fs from 'fs';
+import { ProgramStatus } from '../types/program.type';
 
 export class ProgramController {
     static async createProgram(req: Request, res: Response) {

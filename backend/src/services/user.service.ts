@@ -83,4 +83,12 @@ export class UserService {
         user.password = await bcrypt.hash(newPassword, 10);
         return user.save();
     }
+
+    static async updatePointByMSSV( MSSV: String, point: Number ) {
+        const user = await User.findOneAndUpdate({ MSSV }, { point }, { new: true });
+        if (!user) {
+            throw new ApiError(StatusCodes.NOT_FOUND, 'User not found');
+        }
+        return user;
+    }
 }
