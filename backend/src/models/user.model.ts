@@ -10,5 +10,5 @@ export const User = mongoose.model<userDocument>('User', new mongoose.Schema({
     point: { type: Number, default: 0},
     birthDay: { type: Date },
     gender: { type: String },
-    createdAt: { type: Date, default: Date.now },
+    facultyId: { type: mongoose.Schema.Types.ObjectId, ref: 'Faculty' }
 }, { timestamps: true}));

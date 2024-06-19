@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongoose';
 export interface userModel {
     MSSV: string,
     fullName: string,
@@ -5,12 +6,12 @@ export interface userModel {
     point: number,
     birthDay: Date,
     gender: string,
-    createdAt: Date,
+    facultyId: ObjectId,
 }
 
 export interface adminModel {
     email: string,
     password: string,
     role: string,
-    departmentId: string,
+    facultyId: ObjectId,
 }
