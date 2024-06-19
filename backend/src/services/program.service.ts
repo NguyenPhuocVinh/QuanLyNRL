@@ -71,8 +71,12 @@ export class ProgramService {
         if (!program) {
             throw new ApiError(StatusCodes.NOT_FOUND, 'Program not found');
         }
-        if (program.quantity === '0' ) {
-            throw new ApiError(StatusCodes.BAD_REQUEST, 'Quantity is enough');
+        
+        if (parseInt(program.quantity) == 0) {
+            throw new ApiError(StatusCodes.BAD_REQUEST, 'Program is enough');
+        }
+        if(program.registerDate > new Date()) {
+            throw new ApiError(StatusCodes.BAD_REQUEST, 'Program is not available');
         }
         program.quantity = (parseInt(program.quantity) - 1).toString();
 
