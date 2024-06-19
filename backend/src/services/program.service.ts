@@ -78,11 +78,12 @@ export class ProgramService {
         if(program.registerDate > new Date()) {
             throw new ApiError(StatusCodes.BAD_REQUEST, 'Program is not available');
         }
-        if(program.status !== 'PENDING') {
-            throw new ApiError(StatusCodes.BAD_REQUEST, 'Program is not approved');
-        }
-        if(program.status === 'REJECTED') {
-            throw new ApiError(StatusCodes.BAD_REQUEST, 'Program is rejected');
+        if (program.status !== 'PENDING') {
+            if (program.status === 'REJECTED') {
+                throw new ApiError(StatusCodes.BAD_REQUEST, 'Program has been rejected');
+            } else {
+                throw new ApiError(StatusCodes.BAD_REQUEST, 'Program is not approved');
+            }
         }
         program.quantity = (parseInt(program.quantity) - 1).toString();
 
