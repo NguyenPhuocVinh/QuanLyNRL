@@ -53,7 +53,6 @@ export type CreateProgramRequest = {
     startDate: Date;
     registerDate: Date;
     point: number;
-    status: string;
     minusPoint: Boolean;
     categoryId: string;
 }
