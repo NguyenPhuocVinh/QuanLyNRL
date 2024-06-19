@@ -3,6 +3,8 @@ export interface userModel {
     fullName: string,
     password: string,
     point: number,
+    birthDay: Date,
+    gender: string,
     createdAt: Date,
 }
 

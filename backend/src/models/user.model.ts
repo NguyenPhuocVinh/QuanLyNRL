@@ -7,6 +7,8 @@ export const User = mongoose.model<userDocument>('User', new mongoose.Schema({
     MSSV: { type: String, required: true },
     fullName: { type: String, required: true },
     password: { type: String, required: true },
-    point: { type: Number, default: 0 },
-    createdAt: { type: Date, default: Date.now }
+    point: { type: Number, required: true },
+    birthDay: { type: Date },
+    gender: { type: String },
+    createdAt: { type: Date, default: Date.now },
 }, { timestamps: true}));

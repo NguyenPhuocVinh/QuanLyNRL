@@ -3,14 +3,18 @@ import { ObjectId } from 'mongoose';
 declare module 'express' {
     interface Request {
         user?: any;
+        file?: any;
     }
 }
 
 
 export type RegisterRequest = {
-    MSSV: string;
-    fullName: string;
-    password: string;
+    MSSV: string,
+    fullName: string,
+    password: string,
+    point: number,
+    birthDay: Date,
+    gender: string,
 };
 
 export type LoginRequest = {
@@ -46,9 +50,11 @@ export type CreateProgramRequest = {
     programName: string;
     description: string;
     quantity: string;
-    dateStart: Date;
+    startDate: Date;
+    registerDate: Date;
     point: number;
     status: string;
+    minusPoint: Boolean;
     categoryId: string;
 }
 

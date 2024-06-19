@@ -1,11 +1,14 @@
 import { ObjectId } from 'mongoose';
 export interface programModel {
     programName: string,
+    image: string,
     description: string,
     quantity: string,
-    dateStart: Date,
+    startDate: Date,
+    registerDate: Date,
     point: number,
     status: string,
+    minusPoint: Boolean,
     categoryId: ObjectId,
-    createdAt: Date,
+    // createdAt: Date,
 }
