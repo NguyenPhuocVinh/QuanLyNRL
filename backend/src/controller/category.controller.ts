@@ -5,13 +5,17 @@ import { ApiError } from '../utils/api-error.util';
 
 export class CategoryController {
     static async createCategory(req: Request, res: Response) {
-        const { categoryName } = req.body;
-        if (!categoryName) {
-            throw new ApiError(StatusCodes.BAD_REQUEST, 'Category name is required');
+        try {
+            const { categoryName } = req.body;
+            if (!categoryName) {
+                throw new ApiError(StatusCodes.BAD_REQUEST, 'Category name is required');
+            }
+    
+            const category = await CategoryService.createCategory(categoryName);
+            res.status(StatusCodes.CREATED).json(category);
+        } catch (error: any) {
+            res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({error: error.message});
         }
-
-        const category = await CategoryService.createCategory(categoryName);
-        res.status(StatusCodes.CREATED).json(category);
     }
 
     static async getCategories(req: Request, res: Response) {
