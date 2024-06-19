@@ -79,5 +79,12 @@ export class JoinProgramService {
         return { joinProgram, infoData };
     }
 
+    static async getJoinProgramByMSSV(MSSV: String) {
+        const joinPrograms = await JoinProgram.find({ MSSV });
+        if (!joinPrograms) {
+            throw new ApiError(StatusCodes.NOT_FOUND, 'Join Program not found');
+        }
+        return joinPrograms;
+    }
 
 }

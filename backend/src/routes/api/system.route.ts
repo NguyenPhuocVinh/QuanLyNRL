@@ -5,8 +5,8 @@ import { SystemController } from '../../controller/system.controller';
 
 const systemRouter = express.Router();
 
-systemRouter.post('/register-admin', SystemController.registerAdmin);
-systemRouter.post('/login-admin', SystemController.loginAdmin);
+systemRouter.post('/register', SystemController.registerAdmin);
+systemRouter.post('/login', SystemController.loginAdmin);
 systemRouter.get('/get-all-user', authMiddleware, checkPermission([ROLE_LIST.SUPERADMIN]), SystemController.getAllUser);
 systemRouter.put('/update-user', authMiddleware, checkPermission([ROLE_LIST.SUPERADMIN]), SystemController.updateUser);
 systemRouter.delete('/delete-user', authMiddleware, checkPermission([ROLE_LIST.SUPERADMIN]), SystemController.deleteUser);

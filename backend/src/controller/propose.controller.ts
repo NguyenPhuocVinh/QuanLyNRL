@@ -1,0 +1,40 @@
+import { Request, Response } from 'express';
+import { StatusCodes } from 'http-status-codes';
+import { ApiError } from '../utils/api-error.util';
+import { ProposeService } from '../services/propose.service';
+import { CreateProposeRequest } from '../types/request.type';
+import { multipleUpload } from '../utils/upload.util';
+import fs from 'fs';
+
+export class ProposeController {
+    static async createPropose(req: Request, res: Response) {
+        multipleUpload(req, res, async (err: any) => {
+            if (err) {
+                return res.status(StatusCodes.BAD_REQUEST).json({ error: err.message });
+            }
+            try {
+                const MSSV = req.user?.MSSV;
+                const createProposeRequest: CreateProposeRequest = req.body;
+                
+                if (!createProposeRequest) {
+                    throw new ApiError(StatusCodes.BAD_REQUEST, 'Invalid request');
+                }
+                
+                const imagePaths = req.files?.map((file: any) => file.path);
+                
+                if (!imagePaths || imagePaths.length === 0) {
+                    throw new ApiError(StatusCodes.BAD_REQUEST, 'No files uploaded');
+                }
+                
+                const propose = await ProposeService.createPropose(MSSV, createProposeRequest, imagePaths);
+                
+                // Clean up uploaded files
+                imagePaths.forEach((path: string) => fs.unlinkSync(path));
+                
+                res.status(StatusCodes.CREATED).json(propose);
+            } catch (error: any) {
+                res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message });
+            }
+        });
+    }
+}

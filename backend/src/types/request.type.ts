@@ -4,6 +4,7 @@ declare module 'express' {
     interface Request {
         user?: any;
         file?: any;
+        files?: any;
     }
 }
 
@@ -12,7 +13,6 @@ export type RegisterRequest = {
     MSSV: string,
     fullName: string,
     password: string,
-    point: number,
     birthDay: Date,
     gender: string,
 };
@@ -76,4 +76,11 @@ export type CreateOTPRequest = {
 export type ChangePasswordRequest = {
     oldPassword: string;
     newPassword: string;
+}
+
+export type CreateProposeRequest = {
+    programId: String,
+    image: String,
+    content: String,
+    type: String,
 }

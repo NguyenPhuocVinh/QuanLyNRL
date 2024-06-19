@@ -35,7 +35,7 @@ export class AuthService {
         if (!isMatch) {
             throw new ApiError(StatusCodes.BAD_REQUEST, 'Wrong password');
         }
-        const { accessToken, refreshToken } = generateToken({_id: user._id});
+        const { accessToken, refreshToken } = generateToken({_id: user._id, MSSV: user.MSSV});
         const infoData = getInfoData({
             filed: ['_id', 'MSSV', 'fullName', 'point', 'createdAt'],
             object: user
