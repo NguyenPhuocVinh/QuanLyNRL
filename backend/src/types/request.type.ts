@@ -54,6 +54,7 @@ export type CreateProgramRequest = {
     registerDate: Date;
     point: number;
     minusPoint: Boolean;
+    isPropose: Boolean;
     categoryId: string;
 }
 

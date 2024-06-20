@@ -33,7 +33,7 @@ export class ProposeService {
         return newPropose;
     }
 
-    static async approvePropose(proposeId: String) {
+    static async approvePropose(proposeId: String, response: String) {
         const propose = await Propose.findById(proposeId);
 
         if (!propose) {
@@ -41,7 +41,7 @@ export class ProposeService {
         }
 
         if (propose.status !== 'PENDING') {
-            throw new ApiError(StatusCodes.BAD_REQUEST, 'Propose has already been processed');
+            throw new ApiError(StatusCodes.BAD_REQUEST, 'Propose has already been approved');
         }
 
         if (propose.type === 'PROPOSE') {
@@ -51,31 +51,33 @@ export class ProposeService {
             }
             if (program.status === 'APPROVED') {
                 if (program.isPropose) {
+                    propose.response = response;
                     propose.status = 'APPROVED';
-                    // await propose.save();
-                    // return await UserService.updatePointByMSSV(propose.MSSV, program.point);
-                    Promise.all([
+                    const [savedPropose, user] = await Promise.all([
                         propose.save(),
                         UserService.updatePointByMSSV(propose.MSSV, program.point)
                     ]);
+                    return { propose: savedPropose, user };   
                 } else {
-                    const joinProgram = await JoinProgramService.checkRegistered(propose.MSSV, propose.programId);
-                    if (!joinProgram) {
+                    const isRegistered = await JoinProgramService.checkRegistered(propose.MSSV, propose.programId);
+                    if (!isRegistered) {
                         throw new ApiError(StatusCodes.BAD_REQUEST, 'You have not registered for this program');
                     }
                     propose.status = 'APPROVED';
-                    // await JoinProgramService.updateStatusJoinProgram(propose.programId);
-                    // await propose.save();
-                    // const user = await UserService.updatePointByMSSV(propose.MSSV, program.point);
-                    // return user;
-                    Promise.all([
+                    propose.response = response;
+
+                    const [savedPropose, updatedJoinProgram, user] = await Promise.all([
                         propose.save(),
                         JoinProgramService.updateStatusJoinProgram(propose.programId),
                         UserService.updatePointByMSSV(propose.MSSV, program.point)
                     ]);
+                    return { propose: savedPropose, joinProgram: updatedJoinProgram, user };
                 }
+            } else {
+                throw new ApiError(StatusCodes.BAD_REQUEST, 'Program is not approved');
             }
-
+        } else {
+            throw new ApiError(StatusCodes.BAD_REQUEST, 'Invalid propose type');
         }
     }
 

@@ -41,7 +41,8 @@ export class ProposeController {
     static async approvePropose(req: Request, res: Response) {
         try {
             const proposeId = req.params.proposeId;
-            const propose = await ProposeService.approvePropose(proposeId);
+            const response = req.body.response;
+            const propose = await ProposeService.approvePropose(proposeId, response);
             res.status(StatusCodes.OK).json(propose);
         } catch (error: any) {
             res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message });

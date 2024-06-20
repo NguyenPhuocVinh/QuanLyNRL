@@ -67,27 +67,27 @@ export class ProgramService {
     }
 
     static async joinProgram(programId: any) {
-        const program = await Program.findById(programId) as programModel;
+        const program = await Program.findById(programId);
         if (!program) {
             throw new ApiError(StatusCodes.NOT_FOUND, 'Program not found');
         }
-        
+
         if (parseInt(program.quantity) == 0) {
-            throw new ApiError(StatusCodes.BAD_REQUEST, 'Program is enough');
+            throw new ApiError(StatusCodes.BAD_REQUEST, 'Program is full');
         }
-        if(program.registerDate > new Date()) {
-            throw new ApiError(StatusCodes.BAD_REQUEST, 'Program is not available');
+
+        if (new Date(program.registerDate) > new Date()) {
+            throw new ApiError(StatusCodes.BAD_REQUEST, 'Program registration is not open yet');
         }
-        if (program.status !== 'PENDING') {
-            if (program.status === 'REJECTED') {
-                throw new ApiError(StatusCodes.BAD_REQUEST, 'Program has been rejected');
-            } else {
-                throw new ApiError(StatusCodes.BAD_REQUEST, 'Program is not approved');
-            }
+
+        if (program.status !== 'APPROVED') {
+            throw new ApiError(StatusCodes.BAD_REQUEST, 'Program is not approved');
         }
+
         program.quantity = (parseInt(program.quantity) - 1).toString();
 
-        return await Program.updateOne({ _id: programId }, { quantity: program.quantity });
+        await Program.updateOne({ _id: programId }, { quantity: program.quantity });
+        return program; // Return the program to ensure it's being passed correctly
     }
 
     static async getPointProgram(programId: any) {

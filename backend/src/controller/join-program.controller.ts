@@ -7,7 +7,7 @@ import { UserService } from '../services/user.service';
 export class JoinProgramController {
     static async createJoinProgram ( req: Request, res: Response ) {
         try {
-            const MSSV = req.body.MSSV as String;
+            const MSSV = req.user.MSSV;
             const programId = req.query.programId;
             const joinProgram = await JoinProgramService.createJoinProgram(MSSV, programId);
             return res.status(StatusCodes.CREATED).json(joinProgram);

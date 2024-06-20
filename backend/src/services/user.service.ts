@@ -84,15 +84,21 @@ export class UserService {
         return user.save();
     }
 
-    static async updatePointByMSSV( MSSV: String, point: Number ) {
-        const user = await User.findOneAndUpdate({ MSSV }, { point }, { new: true });
+    static async updatePointByMSSV(MSSV: String, point: Number) {
+        const user = await User.findOne({ MSSV });
         if (!user) {
             throw new ApiError(StatusCodes.NOT_FOUND, 'User not found');
         }
+
+        user.point = (user.point || 0) + Number(point);
+
+        const updatedUser = await user.save();
+
         const infoData = getInfoData({
             filed: ['_id', 'MSSV', 'fullName', 'point', 'createdAt'],
             object: user
         });
+
         return infoData;
     }
 }

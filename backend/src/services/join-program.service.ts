@@ -13,8 +13,12 @@ export class JoinProgramService {
             throw new ApiError(StatusCodes.BAD_REQUEST, 'You have already joined this program');
         }
 
+
         const registrationDate = new Date();
-        await ProgramService.joinProgram(programId);
+        const program = await ProgramService.joinProgram(programId);
+        if(!program) {
+            throw new ApiError(StatusCodes.NOT_FOUND, 'Program not found');
+        }
         
         const joinProgram = await JoinProgram.create({
             programId,
@@ -88,17 +92,11 @@ export class JoinProgramService {
 
     static async checkRegistered(MSSV: String, programId: String) {
         const program = await JoinProgram.findOne({ MSSV, programId });
-        if (!program) {
-            throw new ApiError(StatusCodes.NOT_FOUND, 'Join Program not found');
-        }
-        if(program.status === 'REGISTERED') {
-            return true;
-        }
-        return false;
+        return program && program.status === 'REGISTERED';
     }
 
-    static async updateStatusJoinProgram (joinProgramId: any) {
-        const joinProgram = await JoinProgram.findOneAndUpdate({ _id: joinProgramId }, { status: 'FINISH' }, { new: true });
+    static async updateStatusJoinProgram (programId: any) {
+        const joinProgram = await JoinProgram.findOneAndUpdate({ programId: programId }, { status: 'FINISH' }, { new: true });
         if (!joinProgram) {
             throw new ApiError(StatusCodes.NOT_FOUND, 'Join Program not found');
         }

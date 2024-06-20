@@ -6,4 +6,5 @@ export type ProposeModel = {
     content: String,
     status: String,
     type: String,
+    response: String,
 }
