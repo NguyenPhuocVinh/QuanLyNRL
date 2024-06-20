@@ -86,4 +86,23 @@ export class JoinProgramService {
         return joinPrograms;
     }
 
+    static async checkRegistered(MSSV: String, programId: String) {
+        const program = await JoinProgram.findOne({ MSSV, programId });
+        if (!program) {
+            throw new ApiError(StatusCodes.NOT_FOUND, 'Join Program not found');
+        }
+        if(program.status === 'REGISTERED') {
+            return true;
+        }
+        return false;
+    }
+
+    static async updateStatusJoinProgram (joinProgramId: any) {
+        const joinProgram = await JoinProgram.findOneAndUpdate({ _id: joinProgramId }, { status: 'FINISH' }, { new: true });
+        if (!joinProgram) {
+            throw new ApiError(StatusCodes.NOT_FOUND, 'Join Program not found');
+        }
+        return joinProgram;
+    } 
+
 }

@@ -10,6 +10,7 @@ export interface programModel {
     status: string,
     minusPoint: Boolean,
     categoryId: ObjectId,
+    isPropose: Boolean
     // createdAt: Date,
 }
 

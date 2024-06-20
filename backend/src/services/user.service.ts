@@ -89,6 +89,10 @@ export class UserService {
         if (!user) {
             throw new ApiError(StatusCodes.NOT_FOUND, 'User not found');
         }
-        return user;
+        const infoData = getInfoData({
+            filed: ['_id', 'MSSV', 'fullName', 'point', 'createdAt'],
+            object: user
+        });
+        return infoData;
     }
 }

@@ -37,4 +37,14 @@ export class ProposeController {
             }
         });
     }
+
+    static async approvePropose(req: Request, res: Response) {
+        try {
+            const proposeId = req.params.proposeId;
+            const propose = await ProposeService.approvePropose(proposeId);
+            res.status(StatusCodes.OK).json(propose);
+        } catch (error: any) {
+            res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message });
+        }
+    }
 }
