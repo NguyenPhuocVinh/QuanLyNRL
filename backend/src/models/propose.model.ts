@@ -6,7 +6,7 @@ export const Propose = mongoose.model<proposeDocument>('Propose', new mongoose.S
     MSSV: { type: String, required: true },
     adminId: { type: String },
     programId: { type: String, required: true },
-    image: { type: [String] },
+    images: { type: [String] },
     content: { type: String, required: true },
     status: { type: String, default: 'PENDING', enum: ['PENDING', 'APPROVED', 'REJECTED'] },
     type: { type: String, required: true, enum: ['PROPOSE', 'COMPLAINT']},

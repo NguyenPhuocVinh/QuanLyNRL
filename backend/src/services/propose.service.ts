@@ -5,18 +5,28 @@ import { CreateProposeRequest } from '../types/request.type';
 import cloudinary from '../config/cloudinary.config';
 
 export class ProposeService {
-    static async createPropose(MSSV: String, createProposeRequest: CreateProposeRequest, imagePath: any) {
-        const uploadedImage = await cloudinary.uploader.upload(imagePath, {
-            folder: "NRL/Proposes",
+    static async createPropose(MSSV: String, createProposeRequest: CreateProposeRequest, imagePaths: string[]) {
+        const uploadedImages = await Promise.all(
+            imagePaths.map(imagePath =>
+                cloudinary.uploader.upload(imagePath, {
+                    folder: "NRL/Proposes",
+                })
+            )
+        );
+
+        const imageUrls = uploadedImages.map(image => {
+            if (!image || !image.url) {
+                throw new Error("Failed to upload image to Cloudinary");
+            }
+            return image.url;
         });
-        if (!uploadedImage || !uploadedImage.url) {
-            throw new Error("Failed to upload image to Cloudinary");
-        }
-        const newPropose = Propose.create({
+
+        const newPropose = await Propose.create({
             ...createProposeRequest,
             MSSV: MSSV,
-            image: uploadedImage.url
+            images: imageUrls // Correctly assign image URLs to 'images' field
         });
+
         return newPropose;
     }
 }

@@ -15,22 +15,22 @@ export class ProposeController {
             try {
                 const MSSV = req.user?.MSSV;
                 const createProposeRequest: CreateProposeRequest = req.body;
-                
+
                 if (!createProposeRequest) {
                     throw new ApiError(StatusCodes.BAD_REQUEST, 'Invalid request');
                 }
-                
+
                 const imagePaths = req.files?.map((file: any) => file.path);
-                
+
                 if (!imagePaths || imagePaths.length === 0) {
                     throw new ApiError(StatusCodes.BAD_REQUEST, 'No files uploaded');
                 }
-                
+
                 const propose = await ProposeService.createPropose(MSSV, createProposeRequest, imagePaths);
-                
+
                 // Clean up uploaded files
                 imagePaths.forEach((path: string) => fs.unlinkSync(path));
-                
+
                 res.status(StatusCodes.CREATED).json(propose);
             } catch (error: any) {
                 res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message });
