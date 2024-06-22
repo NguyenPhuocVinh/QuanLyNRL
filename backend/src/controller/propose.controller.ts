@@ -31,7 +31,7 @@ export class ProposeController {
                 // Clean up uploaded files
                 imagePaths.forEach((path: string) => fs.unlinkSync(path));
 
-                res.status(StatusCodes.CREATED).json(propose);
+                res.status(StatusCodes.CREATED).json({propose});
             } catch (error: any) {
                 res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message });
             }
@@ -43,7 +43,7 @@ export class ProposeController {
             const proposeId = req.params.proposeId;
             const response = req.body.response;
             const propose = await ProposeService.approvePropose(proposeId, response);
-            res.status(StatusCodes.OK).json(propose);
+            res.status(StatusCodes.OK).json({propose});
         } catch (error: any) {
             res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message });
         }

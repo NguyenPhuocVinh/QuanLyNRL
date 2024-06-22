@@ -11,7 +11,7 @@ export class FacultyController {
                 throw new ApiError(StatusCodes.BAD_REQUEST, 'Missing required fields');
             }
             const faculty = await FacultyService.createFaculty(facultyName, description);
-            res.status(StatusCodes.CREATED).json(faculty);
+            res.status(StatusCodes.CREATED).json({ faculty });
         } catch (error: any) {
             res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message });
         }

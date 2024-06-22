@@ -15,7 +15,7 @@ export class SystemController {
                 throw new ApiError(StatusCodes.BAD_REQUEST, 'Missing required fields');
             }
             const admin = await SystemService.registerAdmin(registerAdminRequest);
-            res.status(StatusCodes.CREATED).json(admin);
+            res.status(StatusCodes.CREATED).json({admin});
         } catch (error: any) {
             res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({error: error.message});
         }
@@ -51,7 +51,7 @@ export class SystemController {
             }
             const updateUserRequest = req.body;
             const user = await SystemService.updateUser(userId, updateUserRequest);
-            res.status(StatusCodes.OK).json(user);
+            res.status(StatusCodes.OK).json({user});
         } catch (error: any) {
             res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({error: error.message});
         }

@@ -13,7 +13,7 @@ export class AuthController {
                 throw new ApiError(StatusCodes.BAD_REQUEST, 'Missing required fields');
             }
             const user = await AuthService.register(registerRequest);
-            res.status(StatusCodes.CREATED).json(user);
+            res.status(StatusCodes.CREATED).json({user});
         } catch (error: any) {
             res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({error: error.message});
         }

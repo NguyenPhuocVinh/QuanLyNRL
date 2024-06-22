@@ -12,7 +12,7 @@ export class CategoryController {
             }
     
             const category = await CategoryService.createCategory(categoryName);
-            res.status(StatusCodes.CREATED).json(category);
+            res.status(StatusCodes.CREATED).json({category});
         } catch (error: any) {
             res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({error: error.message});
         }

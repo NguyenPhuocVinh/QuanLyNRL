@@ -21,7 +21,7 @@ export class ProgramController {
                 const { path: imagePath } = req.file;
                 const program = await ProgramService.createProgram(createProgramRequest, imagePath);   
                 fs.unlinkSync(imagePath);
-                res.status(StatusCodes.CREATED).json(program);
+                res.status(StatusCodes.CREATED).json({program});
             } catch (error: any) {
                 res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message });
             }
@@ -31,7 +31,7 @@ export class ProgramController {
     static async getPrograms(req: Request, res: Response) {
         try {
             const programs = await ProgramService.getPrograms();
-            res.status(StatusCodes.OK).json(programs);
+            res.status(StatusCodes.OK).json({programs});
         } catch (error: any) {
             res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message });
         }
@@ -45,7 +45,7 @@ export class ProgramController {
                 throw new ApiError(StatusCodes.BAD_REQUEST, 'Invalid request');
             }
             const program = await ProgramService.updateProgram(programId, updateProgramRequest);
-            res.status(StatusCodes.OK).json(program);
+            res.status(StatusCodes.OK).json({program});
         } catch (error: any) {
             res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message });
         }
@@ -55,7 +55,7 @@ export class ProgramController {
         try {
             const { programId } = req.query;
             const program = await ProgramService.approveProgram(programId);
-            res.status(StatusCodes.OK).json(program);
+            res.status(StatusCodes.OK).json({program});
         } catch (error: any) {
             res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message });
         }
@@ -65,7 +65,7 @@ export class ProgramController {
         try {
             const { programId } = req.query;
             const program = await ProgramService.getProgramById(programId);
-            res.status(StatusCodes.OK).json(program);
+            res.status(StatusCodes.OK).json({program});
         } catch (error: any) {
             res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message });
         }
@@ -74,7 +74,7 @@ export class ProgramController {
     static async getProgramsSortRegisterDate(req: Request, res: Response) {
         try {
             const programs = await ProgramService.getProgramsSortRegisterDate();
-            res.status(StatusCodes.OK).json(programs);
+            res.status(StatusCodes.OK).json({programs});
         } catch (error: any) {
             res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message });
         }
@@ -83,7 +83,7 @@ export class ProgramController {
     static async getPublicPrograms(req: Request, res: Response) {
         try {
             const programs = await ProgramService.getPublicPrograms();
-            res.status(StatusCodes.OK).json(programs);
+            res.status(StatusCodes.OK).json({programs});
         } catch (error: any) {
             res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message });
         }

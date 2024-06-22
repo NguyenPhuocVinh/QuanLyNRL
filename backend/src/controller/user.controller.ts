@@ -20,7 +20,7 @@ export class UserController {
         try {
             const { MSSV, otp } = req.body;
             const result = await UserService.loginByOTP(MSSV, otp);
-            res.status(StatusCodes.OK).json(result);
+            res.status(StatusCodes.OK).json({result});
         } catch (error: any) {
             res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({error: error.message});
         }
@@ -31,7 +31,7 @@ export class UserController {
             const userId = req.user._id;
             const changePasswordRequest: ChangePasswordRequest = req.body;
             const result = await UserService.changePassword(userId, changePasswordRequest);
-            res.status(StatusCodes.OK).json(result);
+            res.status(StatusCodes.OK).json({result});
         } catch (error: any) {
             res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({error: error.message});
         }
