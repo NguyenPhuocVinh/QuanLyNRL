@@ -63,7 +63,7 @@ export class ProgramController {
 
     static async getProgramById(req: Request, res: Response) {
         try {
-            const { programId } = req.query;
+            const { programId } = req.params;
             const program = await ProgramService.getProgramById(programId);
             res.status(StatusCodes.OK).json({program});
         } catch (error: any) {
