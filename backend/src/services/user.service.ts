@@ -101,4 +101,16 @@ export class UserService {
 
         return infoData;
     }
+
+    static async getInformation( userId: String ) {
+        const user = await User.findById(userId);
+        if (!user) {
+            throw new ApiError(StatusCodes.NOT_FOUND, 'User not found');
+        }
+        const infoData = getInfoData({
+            filed: ['_id', 'MSSV', 'fullName', 'point', 'createdAt'],
+            object: user
+        });
+        return infoData;
+    }
 }

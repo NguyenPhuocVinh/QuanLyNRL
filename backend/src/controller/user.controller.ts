@@ -36,4 +36,14 @@ export class UserController {
             res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({error: error.message});
         }
     }
+
+    static async getInformation (req: Request, res: Response) {
+        try {
+            const userId = req.user._id;
+            const result = await UserService.getInformation(userId);
+            res.status(StatusCodes.OK).json({result});
+        } catch (error: any) {
+            res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({error: error.message});
+        }
+    }
 }

@@ -10,5 +10,6 @@ userRouter.post('/forgot-password', UserController.forgotPassword);
 userRouter.post('/login-by-otp', UserController.loginByOTP);
 userRouter.post('/change-password', authMiddleware, UserController.changePassword);
 userRouter.get('/get-history', authMiddleware, JoinProgramController.getJoinProgramByMSSV);
+userRouter.get('/get-information', authMiddleware, UserController.getInformation);
 
 export default userRouter;
