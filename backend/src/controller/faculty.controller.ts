@@ -20,7 +20,7 @@ export class FacultyController {
     static async getFaculties(req: Request, res: Response) {
         try {
             const faculties = await FacultyService.getFaculties();
-            res.status(StatusCodes.OK).json(faculties);
+            res.status(StatusCodes.OK).json({ faculties });
         } catch (error: any) {
             res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message });
         }
@@ -44,7 +44,7 @@ export class FacultyController {
                 throw new ApiError(StatusCodes.BAD_REQUEST, 'Missing required fields');
             }
             const faculty = await FacultyService.updateFaculty(facultyId, facultyName, description);
-            res.status(StatusCodes.OK).json(faculty);
+            res.status(StatusCodes.OK).json({ faculty });
         } catch (error: any) {
             res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message });
         }
