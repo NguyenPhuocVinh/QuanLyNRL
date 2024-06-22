@@ -73,8 +73,8 @@ export class SystemService {
     static async getAllUser() {
         const users = await User.find();
         const infoData = users.map((user) => getInfoData({
-            filed: ['_id', 'MSSV', 'fullName', 'email', 'point', 'createdAt'],
-            object: user.toObject() // Convert mongoose document to plain JavaScript object
+            filed: ['_id', 'MSSV', 'fullName', 'email', 'point', 'birthDay', 'gender', 'facultyId', 'createdAt'],
+            object: user.toObject() 
         }));
 
         return infoData;

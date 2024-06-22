@@ -1,0 +1,93 @@
+.new {
+    width: 100%;
+    display: flex;
+  
+    .newContainer {
+      flex: 6;
+  
+      .top,
+      .bottom {
+        padding: 20px;
+        margin: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        display: grid;
+        grid-template-columns: 1fr; // Mặc định một cột
+  
+        h1 {
+          color: #333; /* Màu chữ đen */
+          font-size: 24px;
+          margin-bottom: 20px;
+          text-align: center; /* Căn giữa tiêu đề */
+        }
+  
+        form {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr); // Hai cột bằng nhau
+          gap: 30px;
+  
+          .formInput {
+            display: flex;
+            flex-direction: column;
+  
+            label {
+              margin-bottom: 5px;
+              font-weight: bold;
+              color: #333;
+            }
+  
+            input,
+            select {
+              width: 100%;
+              padding: 10px;
+              border: 1px solid #ccc;
+              border-radius: 5px;
+              transition: border-color 0.3s ease;
+  
+              &:focus {
+                outline: none;
+                border-color: teal;
+              }
+            }
+  
+            select {
+              cursor: pointer;
+            }
+          }
+  
+          .submitBtn {
+            grid-column: span 2; // Chỉnh để button chiếm hết hai cột
+            display: flex;
+            justify-content: center; // Căn giữa nút đăng ký
+          }
+  
+          button {
+            width: 150px; // Độ rộng cố định
+            padding: 10px;
+            border: none;
+            background-color: teal;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+  
+            &:hover {
+              background-color: #0e8d8d;
+            }
+          }
+        }
+      }
+    }
+  
+    @media (max-width: 768px) {
+      .newContainer .bottom {
+        grid-template-columns: 1fr; // Trên thiết bị nhỏ hơn, chuyển về một cột
+      }
+  
+      .newContainer form {
+        grid-template-columns: 1fr; // Chuyển form về một cột trên thiết bị nhỏ hơn
+      }
+    }
+  }
+  

@@ -11,13 +11,13 @@ import { generateToken } from '../utils/token.util';
 
 export class AuthService {
     static async register(registerRequest: RegisterRequest) {
-        const { MSSV, fullName, password, birthDay, gender } = registerRequest;
+        const { MSSV, fullName, password, birthDay, gender, facultyId } = registerRequest;
         const user = await User.findOne({ MSSV });
         if (user) {
             throw new ApiError(StatusCodes.BAD_REQUEST, 'User already exists');
         }
         const hashPassword = await bcrypt.hash(password, 10);
-        const newUser = await User.create({ MSSV, fullName, password: hashPassword, birthDay, gender });
+        const newUser = await User.create({ MSSV, fullName, password: hashPassword, birthDay, gender, facultyId });
         const infoData = getInfoData({
                 filed: ['_id', 'MSSV', 'fullName', 'point', 'createdAt'],
                 object: newUser
