@@ -34,4 +34,8 @@ export class FacultyService {
         return await Faculty.findByIdAndDelete(facultyId);
     }
 
+    static async getFacultyNameById(facultyId: any) {
+        const faculty = await Faculty.findById(facultyId);
+        return faculty?.facultyName;
+    }
 }

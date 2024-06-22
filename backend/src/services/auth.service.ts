@@ -11,7 +11,7 @@ import { generateToken } from '../utils/token.util';
 
 export class AuthService {
     static async register(registerRequest: RegisterRequest) {
-        const { MSSV, fullName, password } = registerRequest;
+        const { MSSV, fullName, password, birthDay, gender } = registerRequest;
         const user = await User.findOne({ MSSV });
         if (user) {
             throw new ApiError(StatusCodes.BAD_REQUEST, 'User already exists');

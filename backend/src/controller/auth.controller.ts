@@ -9,6 +9,7 @@ export class AuthController {
     static async register( req: Request, res: Response ) {
         try {
             const registerRequest: RegisterRequest = req.body;
+            console.log(registerRequest);
             if (!registerRequest.MSSV || !registerRequest.fullName || !registerRequest.password) {
                 throw new ApiError(StatusCodes.BAD_REQUEST, 'Missing required fields');
             }

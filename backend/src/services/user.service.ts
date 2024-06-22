@@ -9,6 +9,7 @@ import { EmailService } from './email.service';
 import { ChangePasswordRequest } from '../types/request.type';
 import { generateToken } from '../utils/token.util';
 import { getInfoData } from '../utils/filter.util';
+import { FacultyService } from './faculty.service';
 
 
 
@@ -95,7 +96,7 @@ export class UserService {
         const updatedUser = await user.save();
 
         const infoData = getInfoData({
-            filed: ['_id', 'MSSV', 'fullName', 'point', 'createdAt'],
+            filed: ['_id', 'MSSV', 'fullName', 'point' ,'createdAt'],
             object: user
         });
 
@@ -107,10 +108,11 @@ export class UserService {
         if (!user) {
             throw new ApiError(StatusCodes.NOT_FOUND, 'User not found');
         }
+        const facultyName = await FacultyService.getFacultyNameById(user.facultyId);
         const infoData = getInfoData({
-            filed: ['_id', 'MSSV', 'fullName', 'point', 'createdAt'],
+            filed: ['_id', 'MSSV', 'fullName', 'point', 'birthDay', 'gender', 'createdAt'],
             object: user
         });
-        return infoData;
+        return { infoData, facultyName};
     }
 }
