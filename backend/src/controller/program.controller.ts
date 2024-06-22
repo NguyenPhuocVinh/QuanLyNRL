@@ -71,10 +71,9 @@ export class ProgramController {
         }
     }
 
-    static async getProgramsByStatus(req: Request, res: Response) {
+    static async getProgramsSortRegisterDate(req: Request, res: Response) {
         try {
-            const { status } = req.query;
-            const programs = await ProgramService.getProgramsByStatus(status);
+            const programs = await ProgramService.getProgramsSortRegisterDate();
             res.status(StatusCodes.OK).json(programs);
         } catch (error: any) {
             res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message });

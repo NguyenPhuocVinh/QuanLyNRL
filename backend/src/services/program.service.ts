@@ -58,12 +58,10 @@ export class ProgramService {
         return Program.findByIdAndDelete(programId);
     }
 
-    static async getProgramsByStatus(status: any) {
-        const programs = await Program.find({ status });
-        if (!programs) {
-            throw new ApiError(StatusCodes.NOT_FOUND, 'Programs not found');
-        }
-        return programs;
+    static async getProgramsSortRegisterDate() {
+        const program = Program.find();
+        program.sort({ registerDate: 1 });
+        return program;
     }
 
     static async joinProgram(programId: any) {
