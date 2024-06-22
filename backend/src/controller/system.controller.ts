@@ -37,7 +37,7 @@ export class SystemController {
     static async getAllUser(req: Request, res: Response) {
         try {
             const users = await SystemService.getAllUser();
-            res.status(StatusCodes.OK).json(users);
+            res.status(StatusCodes.OK).json({users});
         } catch (error: any) {
             res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({error: error.message});
         }
