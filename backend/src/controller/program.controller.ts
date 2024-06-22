@@ -80,4 +80,13 @@ export class ProgramController {
             res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message });
         }
     }
+
+    static async getPublicPrograms(req: Request, res: Response) {
+        try {
+            const programs = await ProgramService.getPublicPrograms();
+            res.status(StatusCodes.OK).json(programs);
+        } catch (error: any) {
+            res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message });
+        }
+    }
 }

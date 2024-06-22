@@ -97,4 +97,10 @@ export class ProgramService {
         }
         return program.point;
     }
+
+    static async getPublicPrograms() {
+        const program =  Program.find({ status: 'APPROVED'});
+        program.sort({ createdAt: -1 });
+        return program;
+    }
 }
