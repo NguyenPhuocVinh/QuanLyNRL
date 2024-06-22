@@ -15,6 +15,7 @@ export type RegisterRequest = {
     password: string,
     birthDay: Date,
     gender: string,
+    facultyId: string,
 };
 
 export type LoginRequest = {

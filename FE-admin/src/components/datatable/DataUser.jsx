@@ -38,6 +38,7 @@ const DataUser = () => {
             'Expires': '0',
           },
         });
+        console.log('Users:', response.data.users); // Log user data to console
         setUserRows(response.data.users); 
       } catch (error) {
         console.error('Error fetching user data:', error); // Log error if fetch fails
