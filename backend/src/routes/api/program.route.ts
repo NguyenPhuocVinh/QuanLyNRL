@@ -11,8 +11,8 @@ programRouter.post('/join-program', JoinProgramController.createJoinProgram);
 programRouter.get('/get-all-program', checkPermission([ROLE_LIST.SUPERADMIN, ROLE_LIST.ADMIN]), ProgramController.getPrograms);
 programRouter.get('/get-program/:programId', ProgramController.getProgramById);
 programRouter.get('/get-program-sort-register-date', ProgramController.getProgramsSortRegisterDate);
-programRouter.put('/update-program', checkPermission([ROLE_LIST.ADMIN]), ProgramController.updateProgram);
-programRouter.put('/approve-program', checkPermission([ROLE_LIST.SUPERADMIN]), ProgramController.approveProgram);
+programRouter.put('/update-program/:programId', checkPermission([ROLE_LIST.ADMIN]), ProgramController.updateProgram);
+programRouter.put('/approve-program/:programId', checkPermission([ROLE_LIST.SUPERADMIN]), ProgramController.approveProgram);
 programRouter.get('/get-public-programs', ProgramController.getPublicPrograms);
 
 

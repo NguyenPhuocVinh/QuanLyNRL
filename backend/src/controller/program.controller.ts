@@ -39,7 +39,7 @@ export class ProgramController {
 
     static async updateProgram(req: Request, res: Response) {
         try {
-            const { programId } = req.query;
+            const { programId } = req.params;
             const updateProgramRequest = req.body;
             if (!updateProgramRequest) {
                 throw new ApiError(StatusCodes.BAD_REQUEST, 'Invalid request');
@@ -53,7 +53,7 @@ export class ProgramController {
 
     static async approveProgram(req: Request, res: Response) {
         try {
-            const { programId } = req.query;
+            const { programId } = req.params;
             const program = await ProgramService.approveProgram(programId);
             res.status(StatusCodes.OK).json({program});
         } catch (error: any) {

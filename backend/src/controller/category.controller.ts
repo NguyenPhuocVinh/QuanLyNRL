@@ -20,6 +20,6 @@ export class CategoryController {
 
     static async getCategories(req: Request, res: Response) {
         const categories = await CategoryService.getCategories();
-        res.status(StatusCodes.OK).json(categories);
+        res.status(StatusCodes.OK).json({categories});
     }
 }
