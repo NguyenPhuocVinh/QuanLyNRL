@@ -115,4 +115,13 @@ export class UserService {
         });
         return { infoData, facultyName};
     }
+
+    static async resetPassword( userId: String, newPassword: any ) {
+        const user = await User.findById(userId);
+        if (!user) {
+            throw new ApiError(StatusCodes.NOT_FOUND, 'User not found');
+        }
+        user.password = await bcrypt.hash(newPassword, 10);
+        return user.save();
+    }
 }

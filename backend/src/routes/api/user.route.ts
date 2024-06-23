@@ -8,8 +8,9 @@ const userRouter = express.Router();
 
 userRouter.post('/forgot-password', UserController.forgotPassword);
 userRouter.post('/login-by-otp', UserController.loginByOTP);
-userRouter.post('/change-password', authMiddleware, UserController.changePassword);
+userRouter.put('/change-password', authMiddleware, UserController.changePassword);
 userRouter.get('/get-history', authMiddleware, JoinProgramController.getJoinProgramByMSSV);
 userRouter.get('/get-information', authMiddleware, UserController.getInformation);
+userRouter.put('/reset-password', authMiddleware, UserController.resetPassword);
 
 export default userRouter;

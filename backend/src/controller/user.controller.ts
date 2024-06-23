@@ -46,4 +46,15 @@ export class UserController {
             res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({error: error.message});
         }
     }
+
+    static async resetPassword (req: Request, res: Response) {
+        try {
+            const userId = req.user._id;
+            const newPassword = req.body.newPassword;
+            const result = await UserService.resetPassword(userId, newPassword);
+            res.status(StatusCodes.OK).json({result, message: 'Your password has been reset successfully'});
+        } catch (error: any) {
+            res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({error: error.message});
+        }
+    }
 }
