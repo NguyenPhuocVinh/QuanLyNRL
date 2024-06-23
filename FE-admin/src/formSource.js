@@ -42,36 +42,70 @@ export const userInputs = [
     },
   ];
   
-  export const productInputs = [
+  export const programInputs = [
     {
-      id: 1,
-      label: "Title",
-      type: "text",
-      placeholder: "Apple Macbook Pro",
+        id: 1,
+        label: "Program Name",
+        type: "text",
+        placeholder: "Program Name",
+        name: "programName"
     },
     {
-      id: 2,
-      label: "Description",
-      type: "text",
-      placeholder: "Description",
+        id: 2,
+        label: "Description",
+        type: "text",
+        placeholder: "Description",
+        name: "description"
     },
     {
-      id: 3,
-      label: "Category",
-      type: "text",
-      placeholder: "Computers",
+        id: 3,
+        label: "Quantity",
+        type: "number",
+        placeholder: "Quantity",
+        name: "quantity"
     },
     {
-      id: 4,
-      label: "Price",
-      type: "text",
-      placeholder: "100",
+        id: 4,
+        label: "Start Date",
+        type: "date",
+        placeholder: "Start Date",
+        name: "startDate"
     },
     {
-      id: 5,
-      label: "Stock",
-      type: "text",
-      placeholder: "in stock",
+        id: 5,
+        label: "Register Date",
+        type: "date",
+        placeholder: "Register Date",
+        name: "registerDate"
     },
-  ];
+    {
+        id: 6,
+        label: "Point",
+        type: "number",
+        placeholder: "Point",
+        name: "point"
+    },
+    {
+        id: 7,
+        label: "Minus Point",
+        type: "checkbox",
+        placeholder: "",
+        name: "minusPoint"
+    },
+    {
+        id: 8,
+        label: "Is Propose",
+        type: "checkbox",
+        placeholder: "",
+        name: "isPropose"
+    },
+    {
+        id: 9,
+        label: "Category ID",
+        type: "text",
+        placeholder: "Category ID",
+        name: "categoryId"
+    }
+];
+
   

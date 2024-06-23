@@ -1,0 +1,95 @@
+.single {
+  display: flex;
+  height: 100%;
+}
+
+.singleContainer {
+  flex: 1;
+  padding: 20px;
+}
+
+.programDetails {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.title {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.programInfo {
+  display: flex;
+  align-items: flex-start;
+}
+
+.imageContainer {
+  flex: 0 0 200px;
+  margin-right: 20px;
+}
+
+.programImg {
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.infoContainer {
+  flex: 1;
+}
+
+.programName {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.description {
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+.details {
+  margin-top: 10px;
+}
+
+.detailItem {
+  margin-bottom: 8px;
+}
+
+.itemKey {
+  font-weight: bold;
+  color: #555;
+}
+
+.itemValue {
+  color: #333;
+}
+
+.loading, .error {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #ffe6e6;
+  border: 1px solid #ffcccc;
+  border-radius: 4px;
+  color: #ff0000;
+}
+
+@media screen and (max-width: 768px) {
+  .programInfo {
+    flex-direction: column;
+  }
+
+  .imageContainer {
+    flex: 0 0 auto;
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+
+  .programImg {
+    max-width: 100%;
+    height: auto;
+  }
+}
