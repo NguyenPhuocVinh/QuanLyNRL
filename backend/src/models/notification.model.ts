@@ -5,5 +5,5 @@ interface NotificationModelDocument extends NotificationModel, mongoose.Document
 export const Notification = mongoose.model<NotificationModelDocument>('Notification', new mongoose.Schema ({
     title: { type: String, required: true},
     message: { type: String, required: true},
-    attach: {type: String}
+    attach: {type: [String]}
 }))
