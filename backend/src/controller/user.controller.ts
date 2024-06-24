@@ -57,4 +57,15 @@ export class UserController {
             res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({error: error.message});
         }
     }
+
+    // static async updateInformation (req: Request, res: Response) {
+    //     try {
+    //         const userId = req.user._id;
+    //         const updateInformation = req.body;
+    //         const result = await UserService.updateInformation(userId, updateInformation);
+    //         res.status(StatusCodes.OK).json({result, message: 'Your information has been updated successfully'});
+    //     } catch (error: any) {
+    //         res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({error: error.message});
+    //     }
+    // }
 }

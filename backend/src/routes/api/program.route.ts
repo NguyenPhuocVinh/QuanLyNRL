@@ -7,7 +7,7 @@ import { checkPermission, ROLE_LIST } from '../../middlewares/permission.middlew
 const programRouter = express.Router();
 
 programRouter.post('/create-program', checkPermission([ROLE_LIST.SUPERADMIN, ROLE_LIST.ADMIN]), ProgramController.createProgram);
-programRouter.post('/join-program', JoinProgramController.createJoinProgram);
+// programRouter.post('/join-program', JoinProgramController.createJoinProgram);
 programRouter.get('/get-all-program', checkPermission([ROLE_LIST.SUPERADMIN, ROLE_LIST.ADMIN]), ProgramController.getPrograms);
 programRouter.get('/get-program/:programId', ProgramController.getProgramById);
 programRouter.get('/get-program-sort-register-date', ProgramController.getProgramsSortRegisterDate);

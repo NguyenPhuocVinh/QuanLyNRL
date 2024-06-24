@@ -84,10 +84,21 @@ export class JoinProgramService {
 
     static async getJoinProgramByMSSV(MSSV: String) {
         const joinPrograms = await JoinProgram.find({ MSSV });
-        if (!joinPrograms) {
-            throw new ApiError(StatusCodes.NOT_FOUND, 'Join Program not found');
+
+        if (!joinPrograms || joinPrograms.length === 0) {
+            throw new ApiError(StatusCodes.NOT_FOUND, 'Join Programs not found for the given MSSV');
         }
-        return joinPrograms;
+    
+        // Fetch program details for each join program
+        const programs = await Promise.all(joinPrograms.map(async (joinProgram) => {
+            const program = await ProgramService.getProgramById(joinProgram.programId);
+            return {
+                ...joinProgram.toObject(),
+                programDetails: program
+            };
+        }));
+    
+        return programs;
     }
 
     static async checkRegistered(MSSV: String, programId: String) {

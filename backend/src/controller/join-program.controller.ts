@@ -58,9 +58,9 @@ export class JoinProgramController {
 
     static async getJoinProgramByMSSV ( req: Request, res: Response ) {
         try {
-            const MSSV = req.query.MSSV as String;
-            const joinProgram = await JoinProgramService.getJoinProgramByMSSV(MSSV);
-            return res.status(StatusCodes.OK).json({joinProgram});
+            const MSSV = req.user.MSSV as String;
+            const programs = await JoinProgramService.getJoinProgramByMSSV(MSSV);
+            return res.status(StatusCodes.OK).json({programs});
         } catch (error: any) {
             res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message})
         }
