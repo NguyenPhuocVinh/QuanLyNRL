@@ -49,4 +49,13 @@ export class ProposeController {
             res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message });
         }
     }
+
+    static async getAllPropose(req: Request, res: Response){
+        try {
+            const proposes = await ProposeService.getAllPropose()
+            res.status(StatusCodes.OK).json({proposes})
+        } catch (error: any) {
+            res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({error: error.message})
+        }
+    } 
 }

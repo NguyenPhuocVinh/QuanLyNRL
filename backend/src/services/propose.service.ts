@@ -81,20 +81,7 @@ export class ProposeService {
         }
     }
 
-    //1. tim propose
-    //2. kiem tra propose co status la pending khong
-    //3. kiem tra propose co type la propose khong
-
-    //4. kiem tra program co status la approved khong
-    //5. kiem tra program co isPropose la true khong
-    //6. kiem tra diem cua program
-    // truong hop 1
-    //1. update status cua propose
-    //2. tinh diem cho user
-    // truong hop 2
-    //1. kiem tra join program co ton tai khong
-    //2. kiem tra join program co status la registered khong
-    //7. update status cua propose
-    //8. update status cua join program
-    //9. tinh diem cho user
+    static async getAllPropose() {
+        return await Propose.find()
+    }
 }
