@@ -8,7 +8,7 @@ export class JoinProgramController {
     static async createJoinProgram ( req: Request, res: Response ) {
         try {
             const MSSV = req.user.MSSV;
-            const programId = req.query.programId;
+            const programId = req.params.programId;
             const joinProgram = await JoinProgramService.createJoinProgram(MSSV, programId);
             return res.status(StatusCodes.CREATED).json({joinProgram});
         } catch (error: any) {
@@ -27,7 +27,7 @@ export class JoinProgramController {
 
     static async getJoinProgramById ( req: Request, res: Response ) {
         try {
-            const joinProgramId = req.query.joinProgramId;
+            const joinProgramId = req.params.joinProgramId;
             const joinProgram = await JoinProgramService.getJoinProgramById(joinProgramId);
             return res.status(StatusCodes.OK).json(joinProgram);
         } catch (error: any) {
@@ -38,7 +38,7 @@ export class JoinProgramController {
     static async attendanceJoinProgram ( req: Request, res: Response ) {
         try {
             const MSSV = req.body.MSSV as String;
-            const programId = req.query.programId as String;
+            const programId = req.params.programId as String;
             const joinProgram = await JoinProgramService.attendanceJoinProgram(MSSV, programId);
             return res.status(StatusCodes.OK).json({joinProgram});
         } catch (error: any) {
@@ -48,7 +48,7 @@ export class JoinProgramController {
 
     static async getJoinProgramByProgramId ( req: Request, res: Response ) {
         try {
-            const programId = req.query.programId;
+            const programId = req.params.programId;
             const joinProgram = await JoinProgramService.getJoinProgramByProgramId(programId);
             return res.status(StatusCodes.OK).json({joinProgram});
         } catch (error: any) {

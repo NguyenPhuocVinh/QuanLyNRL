@@ -5,7 +5,7 @@ import { ProposeService } from '../services/propose.service';
 import { CreateProposeRequest } from '../types/request.type';
 import { multipleUpload } from '../utils/upload.util';
 import fs from 'fs';
-
+``
 export class ProposeController {
     static async createPropose(req: Request, res: Response) {
         multipleUpload(req, res, async (err: any) => {
@@ -15,6 +15,7 @@ export class ProposeController {
             try {
                 const MSSV = req.user?.MSSV;
                 const createProposeRequest: CreateProposeRequest = req.body;
+                
 
                 if (!createProposeRequest) {
                     throw new ApiError(StatusCodes.BAD_REQUEST, 'Invalid request');
