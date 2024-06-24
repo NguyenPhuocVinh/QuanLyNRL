@@ -1,7 +1,12 @@
+import { ObjectId } from 'mongoose';
 export interface NotificationModel {
-    id: string;
-    title: string;
-    message: string;
-    read: boolean;
-    createdAt: Date;
+    title: String;
+    message: String;
+    attach: String;
 }
+
+export interface userNotificationModel {
+    userId: ObjectId;
+    notificationId: ObjectId;
+    isRead: Boolean
+} 

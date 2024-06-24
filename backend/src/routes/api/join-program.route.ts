@@ -6,7 +6,7 @@ const joinProgramRouter = express.Router();
 
 joinProgramRouter.post('/register/:programId', JoinProgramController.createJoinProgram);
 joinProgramRouter.get('/get-join-programs', checkPermission([ROLE_LIST.ADMIN, ROLE_LIST.SUPERADMIN]), JoinProgramController.getJoinPrograms);
-joinProgramRouter.get('/get-join-program/:programId', checkPermission([ROLE_LIST.ADMIN, ROLE_LIST.SUPERADMIN]), JoinProgramController.getJoinProgramById);
+joinProgramRouter.get('/get-join-program/:joinProgramId', checkPermission([ROLE_LIST.ADMIN, ROLE_LIST.SUPERADMIN]), JoinProgramController.getJoinProgramById);
 joinProgramRouter.put('/attendance/:programId', checkPermission([ROLE_LIST.ADMIN, ROLE_LIST.SUPERADMIN]), JoinProgramController.attendanceJoinProgram);
 
 export default joinProgramRouter;

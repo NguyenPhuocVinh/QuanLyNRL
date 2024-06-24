@@ -85,3 +85,9 @@ export type CreateProposeRequest = {
     content: String,
     type: String,
 }
+
+export type CreateNotificationRequest = {
+    userId: String,
+    tittle: String,
+    message: String
+}
