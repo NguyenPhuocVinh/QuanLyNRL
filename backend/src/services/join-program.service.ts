@@ -114,4 +114,38 @@ export class JoinProgramService {
         return joinProgram;
     } 
 
+    static async absentProgram(MSSV: String, programId: String) {
+        // Check if attendance record exists
+        await this.checkAttendance(MSSV, programId);
+        
+        // Get the program details
+        const program = await ProgramService.getProgramById(programId);
+        if (!program) {
+            throw new ApiError(StatusCodes.NOT_FOUND, 'Program not found');
+        }
+        
+        // Find the join program record
+        const joinProgram = await JoinProgram.findOne({ MSSV, programId });
+        if (!joinProgram) {
+            throw new ApiError(StatusCodes.NOT_FOUND, 'Join Program not found');
+        }
+        
+        // Update the status to 'ABSENT' and set the date
+        joinProgram.status = 'ABSENT';
+        await joinProgram.save();
+        
+        // Update the user's points accordingly (assumption: subtract points for absence)
+        const updatePointByMSSV = await UserService.updatePointByMSSV(MSSV, -program.point);
+        
+        // Extract the relevant info data
+        const infoData = getInfoData({
+            filed: ['_id', 'MSSV', 'fullName', 'point', 'createdAt'],
+            object: updatePointByMSSV
+        });
+        
+        // Return the updated join program and user info data
+        return { joinProgram, infoData };
+    }
+    
+
 }

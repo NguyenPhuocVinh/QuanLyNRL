@@ -84,4 +84,24 @@ export class ProposeService {
     static async getAllPropose() {
         return await Propose.find()
     }
+
+    static async getProposeByMSSV(MSSV: String) {
+        return await Propose.find({ MSSV: MSSV });
+    }
+
+    static async rejectPropose(proposeId: String, response: String) {
+        const propose = await Propose.findById(proposeId);
+
+        if (!propose) {
+            throw new ApiError(StatusCodes.NOT_FOUND, 'Propose not found');
+        }
+
+        if (propose.status !== 'PENDING') {
+            throw new ApiError(StatusCodes.BAD_REQUEST, 'Propose has already been approved');
+        }
+
+        propose.status = 'REJECTED';
+        propose.response = response;
+        return await propose.save();
+    }
 }

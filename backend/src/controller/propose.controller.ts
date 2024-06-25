@@ -58,4 +58,25 @@ export class ProposeController {
             res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({error: error.message})
         }
     } 
+
+    static async getProposeByMSSV(req: Request, res: Response){
+        try {
+            const MSSV = req.user.MSSV;
+            const propose = await ProposeService.getProposeByMSSV(MSSV);
+            res.status(StatusCodes.OK).json({propose});
+        } catch (error: any) {
+            res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({error: error.message});
+        }
+    }
+
+    static async rejectPropose(req: Request, res: Response){
+        try {
+            const proposeId = req.params.proposeId;
+            const response = req.body.response;
+            const propose = await ProposeService.rejectPropose(proposeId, response);
+            res.status(StatusCodes.OK).json({propose});
+        } catch (error: any) {
+            res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({error: error.message});
+        }
+    }
 }

@@ -65,5 +65,16 @@ export class JoinProgramController {
             res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message})
         }
     }
+
+    static async asbsentJoinProgram ( req: Request, res: Response ) {
+        try {
+            const MSSV = req.body.MSSV as String;
+            const programId = req.params.programId as String;
+            const joinProgram = await JoinProgramService.absentProgram(MSSV, programId);
+            return res.status(StatusCodes.OK).json({joinProgram});
+        } catch (error: any) {
+            res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message})
+        }
+    }
     
 }
