@@ -77,7 +77,9 @@ export class ProposeService {
                 throw new ApiError(StatusCodes.BAD_REQUEST, 'Program is not approved');
             }
         } else {
-            throw new ApiError(StatusCodes.BAD_REQUEST, 'Invalid propose type');
+            propose.status = 'APPROVED';
+            propose.response = response;
+            return await propose.save();
         }
     }
 
