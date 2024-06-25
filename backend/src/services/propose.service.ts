@@ -86,8 +86,20 @@ export class ProposeService {
     }
 
     static async getProposeByMSSV(MSSV: String) {
-        return await Propose.find({ MSSV: MSSV });
+        const proposes = await Propose.find({ MSSV: MSSV });
+        const result = await Promise.all(proposes.map(async propose => {
+            const program = await ProgramService.getProgramById(propose.programId);
+            if (!program) {
+                throw new ApiError(StatusCodes.NOT_FOUND, 'Program not found');
+            }
+            return {
+                ...propose.toObject(),
+                programName: program.programName
+            };
+        }));
+        return result; // Return the result with embedded program names
     }
+    
 
     static async rejectPropose(proposeId: String, response: String) {
         const propose = await Propose.findById(proposeId);

@@ -59,13 +59,13 @@ export class ProposeController {
         }
     } 
 
-    static async getProposeByMSSV(req: Request, res: Response){
+    static async getProposeByMSSV(req: Request, res: Response) {
         try {
             const MSSV = req.user.MSSV;
-            const propose = await ProposeService.getProposeByMSSV(MSSV);
-            res.status(StatusCodes.OK).json({propose});
+            const result = await ProposeService.getProposeByMSSV(MSSV); // Get the array of results
+            res.status(StatusCodes.OK).json({ result }); // Return the entire result
         } catch (error: any) {
-            res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({error: error.message});
+            res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message });
         }
     }
 
