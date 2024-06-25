@@ -18,9 +18,9 @@ export class NotificationController {
                     throw new ApiError(StatusCodes.BAD_REQUEST, 'Invalid request');
                 }
                 const attachUris = req.files?.map((file: any) => file.path);
-                if (!attachUris || attachUris.length === 0) {
-                    throw new ApiError(StatusCodes.BAD_REQUEST, 'No files uploaded');
-                }
+                // if (!attachUris || attachUris.length === 0) {
+                //     throw new ApiError(StatusCodes.BAD_REQUEST, 'No files uploaded');
+                // }
                 const notification = await NotificationService.createNotification(createNotificationRequest, attachUris);
                 await NotificationService.sendNotificationToUser(notification._id as string);
 
