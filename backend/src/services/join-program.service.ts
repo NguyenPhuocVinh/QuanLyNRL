@@ -132,6 +132,7 @@ export class JoinProgramService {
         
         // Update the status to 'ABSENT' and set the date
         joinProgram.status = 'ABSENT';
+        joinProgram.joiningDate = new Date();
         await joinProgram.save();
         
         // Update the user's points accordingly (assumption: subtract points for absence)
