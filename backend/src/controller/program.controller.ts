@@ -88,4 +88,14 @@ export class ProgramController {
             res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message });
         }
     }
+
+    static async rejectProgram(req: Request, res: Response) {
+        try {
+            const { programId } = req.params;
+            const program = await ProgramService.rejectProgram(programId);
+            res.status(StatusCodes.OK).json({program});
+        } catch (error: any) {
+            res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message });
+        }
+    }
 }

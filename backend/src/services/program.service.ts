@@ -101,4 +101,13 @@ export class ProgramService {
         program.sort({ createdAt: -1 });
         return program;
     }
+
+    static async rejectProgram(programId: any) {
+        const program = await Program.findById(programId);
+        if (!program) {
+            throw new ApiError(StatusCodes.NOT_FOUND, 'Program not found');
+        }
+        program.status = 'REJECTED';
+        return await program.save();
+    }
 }

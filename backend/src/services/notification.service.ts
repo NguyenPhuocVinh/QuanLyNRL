@@ -5,6 +5,7 @@ import { CreateNotificationRequest } from '../types/request.type';
 import { UserService } from './user.service';
 import cloudinary from '../config/cloudinary.config';
 import { UserNotification } from '../models/user-notification.model';
+import { NotificationModel } from '../types/notification.type';
 import fs from 'fs/promises';
 
 
@@ -68,10 +69,18 @@ export class NotificationService {
     static async getNotificationByUserId(userId: string) {
         const userNotifications = await UserNotification.find({ userId: userId })
             .populate('notificationId')
-            .lean(); 
+            .lean() as any []; 
+    
         const filteredNotifications = userNotifications.filter(notification => notification.notificationId !== null);
     
-        return filteredNotifications;
+        const sortedNotifications = filteredNotifications.sort((a, b) => {
+            const dateA = new Date(a.notificationId!.createdAt).getTime();
+            const dateB = new Date(b.notificationId!.createdAt).getTime();
+            return dateB - dateA; 
+        });
+    
+        return sortedNotifications;
     }
+    
 
 }

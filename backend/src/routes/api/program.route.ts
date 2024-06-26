@@ -14,6 +14,7 @@ programRouter.get('/get-program-sort-register-date', ProgramController.getProgra
 programRouter.put('/update-program/:programId', checkPermission([ROLE_LIST.ADMIN]), ProgramController.updateProgram);
 programRouter.put('/approve-program/:programId', checkPermission([ROLE_LIST.SUPERADMIN]), ProgramController.approveProgram);
 programRouter.get('/get-public-programs', ProgramController.getPublicPrograms);
+programRouter.put('/reject-program/:programId', checkPermission([ROLE_LIST.SUPERADMIN]), ProgramController.rejectProgram);
 
 
 
