@@ -3,6 +3,7 @@ export interface NotificationModel {
     title: String;
     message: String;
     attach: String;
+    createdAt: Date;
 }
 
 export interface userNotificationModel {
