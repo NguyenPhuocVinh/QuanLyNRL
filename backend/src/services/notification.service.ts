@@ -65,9 +65,13 @@ export class NotificationService {
         return userNotification
     }
 
-    static async getNotificationByUserId (userId: string) {
-        const userNotifications = await UserNotification.find({ userId: userId }).populate('notificationId');
-        return userNotifications;
+    static async getNotificationByUserId(userId: string) {
+        const userNotifications = await UserNotification.find({ userId: userId })
+            .populate('notificationId')
+            .lean(); 
+        const filteredNotifications = userNotifications.filter(notification => notification.notificationId !== null);
+    
+        return filteredNotifications;
     }
 
 }
