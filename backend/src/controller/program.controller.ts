@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import fs from 'fs';
 import { StatusCodes } from 'http-status-codes';
 import { ProgramService } from '../services/program.service';
-import { CreateProgramRequest } from '../types/request.type';
+import { CreateProgramRequest, UpdateProgramRequest } from '../types/request.type';
 import { ApiError } from '../utils/api-error.util';
 import { singleUpload } from '../utils/upload.util';
 import { ProgramStatus } from '../types/program.type';
@@ -40,7 +40,7 @@ export class ProgramController {
     static async updateProgram(req: Request, res: Response) {
         try {
             const { programId } = req.params;
-            const updateProgramRequest = req.body;
+            const updateProgramRequest: UpdateProgramRequest = req.body;
             if (!updateProgramRequest) {
                 throw new ApiError(StatusCodes.BAD_REQUEST, 'Invalid request');
             }

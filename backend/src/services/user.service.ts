@@ -24,7 +24,7 @@ export class UserService {
     }
 
     static async getUserByMSSV(MSSV: String) {
-        return User.findOne({ MSSV });
+        return User.findOne({ MSSV }).lean();
     }
 
     static async getMSSVByUserId(userId: String) {

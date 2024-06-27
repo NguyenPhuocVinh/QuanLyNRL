@@ -60,12 +60,12 @@ export type CreateProgramRequest = {
 }
 
 export type UpdateProgramRequest = {
-    programName?: string;
-    description?: string;
-    quantity?: string;
-    dateStart?: Date;
-    point?: number;
-    categoryId?: string;
+    programName: string;
+    description: string;
+    quantity: string;
+    dateStart: Date;
+    point: number;
+    categoryId: string;
 }
 
 export type CreateOTPRequest = {

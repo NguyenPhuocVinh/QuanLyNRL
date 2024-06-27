@@ -16,10 +16,10 @@ export class JoinProgramService {
 
 
         const registrationDate = new Date();
-        const program = await ProgramService.joinProgram(programId);
-        if(!program) {
-            throw new ApiError(StatusCodes.NOT_FOUND, 'Program not found');
-        }
+        // const program = await ProgramService.joinProgram(programId);
+        // if(!program) {
+        //     throw new ApiError(StatusCodes.NOT_FOUND, 'Program not found');
+        // }
         
         const joinProgram = await JoinProgram.create({
             programId,
@@ -163,16 +163,11 @@ export class JoinProgramService {
 
 
     static async findJoinProgramByMSSVAndProgramId(MSSV: string, programId: string) {
-  
         const regex = new RegExp(MSSV, 'i'); 
 
-        const joinPrograms = await JoinProgram.collection.find({ MSSV: regex, programId: programId }).toArray();
+        const joinPrograms = await JoinProgram.find({ MSSV: { $regex: regex }, programId }).lean();
+        console.log(joinPrograms);
 
-        if (!joinPrograms || joinPrograms.length === 0) {
-            throw new ApiError(StatusCodes.NOT_FOUND, 'Join Program not found');
-        }
-
-        return joinPrograms;
     }
     
 

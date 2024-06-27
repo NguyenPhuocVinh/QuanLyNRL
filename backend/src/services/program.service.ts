@@ -64,29 +64,41 @@ export class ProgramService {
         return program;
     }
 
-    static async joinProgram(programId: any) {
-        const program = await Program.findById(programId);
-        if (!program) {
-            throw new ApiError(StatusCodes.NOT_FOUND, 'Program not found');
-        }
+    // static async joinProgram(programId: any) {
+    //     const program = await Program.findById(programId);
+    //     if (!program) {
+    //         throw new ApiError(StatusCodes.NOT_FOUND, 'Program not found');
+    //     }
 
-        if (parseInt(program.quantity) == 0) {
-            throw new ApiError(StatusCodes.BAD_REQUEST, 'Program is full');
-        }
+    //     // Kiểm tra nếu chương trình đã hết số lượng đăng ký
+    //     if (parseInt(program.quantity) === 0) {
+    //         throw new ApiError(StatusCodes.BAD_REQUEST, 'Program is full');
+    //     }
 
-        if (new Date(program.registerDate) > new Date()) {
-            throw new ApiError(StatusCodes.BAD_REQUEST, 'Program registration is not open yet');
-        }
+    //     // Kiểm tra nếu ngày hiện tại trước ngày đăng ký của chương trình
+    //     const currentDate = new Date();
+    //     if (currentDate < new Date(program.registerDate)) {
+    //         throw new ApiError(StatusCodes.BAD_REQUEST, 'Program registration is not open yet');
+    //     }
 
-        if (program.status !== 'APPROVED') {
-            throw new ApiError(StatusCodes.BAD_REQUEST, 'Program is not approved');
-        }
+    //     // Kiểm tra nếu ngày hiện tại sau ngày đăng ký của chương trình
+    //     if (currentDate > new Date(program.endDate)) {
+    //         throw new ApiError(StatusCodes.BAD_REQUEST, 'Program registration has closed');
+    //     }
 
-        program.quantity = (parseInt(program.quantity) - 1).toString();
+    //     // Kiểm tra nếu chương trình chưa được phê duyệt
+    //     if (program.status !== 'APPROVED') {
+    //         throw new ApiError(StatusCodes.BAD_REQUEST, 'Program is not approved');
+    //     }
 
-        await Program.updateOne({ _id: programId }, { quantity: program.quantity });
-        return program; // Return the program to ensure it's being passed correctly
-    }
+    //     // Giảm số lượng còn lại của chương trình đi 1 và lưu lại vào cơ sở dữ liệu
+    //     program.quantity = (parseInt(program.quantity) - 1).toString();
+    //     await Program.updateOne({ _id: programId }, { quantity: program.quantity });
+
+    //     // Trả về thông tin chương trình sau khi đã cập nhật
+    //     return program;
+    // }
+    
 
     static async getPointProgram(programId: any) {
         const program = await Program.findById(programId);
