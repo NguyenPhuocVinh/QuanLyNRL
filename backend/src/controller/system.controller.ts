@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import { ApiError } from '../utils/api-error.util';
 import { UserService } from '../services/user.service';
 import { SystemService } from '../services/system.service';
-import { RegisterAdminRequest, LoginAdminRequest } from '../types/request.type';
+import { RegisterAdminRequest, LoginAdminRequest, UpdateUserRequest } from '../types/request.type';
 
 
 export class SystemController {
@@ -49,7 +49,7 @@ export class SystemController {
             if (!userId) {
                 throw new ApiError(StatusCodes.BAD_REQUEST, 'Missing required userId');
             }
-            const updateUserRequest = req.body;
+            const updateUserRequest: UpdateUserRequest = req.body;
             const user = await SystemService.updateUser(userId, updateUserRequest);
             res.status(StatusCodes.OK).json({user});
         } catch (error: any) {

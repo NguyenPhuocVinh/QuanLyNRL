@@ -6,7 +6,7 @@ import { ApiError } from '../utils/api-error.util';
 import { OTPService } from './otp.service';
 import { generateOTP } from '../utils/otp.util';
 import { EmailService } from './email.service';
-import { ChangePasswordRequest } from '../types/request.type';
+import { ChangePasswordRequest, UpdateInformationRequest } from '../types/request.type';
 import { generateToken } from '../utils/token.util';
 import { getInfoData } from '../utils/filter.util';
 import { FacultyService } from './faculty.service';
@@ -127,5 +127,14 @@ export class UserService {
         }
         user.password = await bcrypt.hash(newPassword, 10);
         return user.save();
+    }
+
+    static async updateInformation( userId: String, updateInformationRequest: UpdateInformationRequest ) {
+        const user = await User.findByIdAndUpdate(userId, updateInformationRequest, { new: true });
+        const infoData = getInfoData({
+            filed: ['_id', 'MSSV', 'fullName', 'point' ],
+            object: user
+        });
+        return infoData;
     }
 }

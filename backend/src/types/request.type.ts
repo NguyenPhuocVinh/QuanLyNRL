@@ -41,6 +41,8 @@ export type UpdateUserRequest = {
     fullName?: string;
     password?: string;
     point?: number;
+    birthDay?: Date;
+    gender?: string;
 }
 
 export type UpdateRequest<T> = {
@@ -89,4 +91,10 @@ export type CreateProposeRequest = {
 export type CreateNotificationRequest = {
     title: String,
     message: String
+}
+
+export type UpdateInformationRequest = {
+    fullName: string;
+    birthDay: Date;
+    gender: string;
 }

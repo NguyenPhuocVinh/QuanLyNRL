@@ -12,5 +12,6 @@ userRouter.put('/change-password', authMiddleware, UserController.changePassword
 userRouter.get('/get-history', authMiddleware, JoinProgramController.getJoinProgramByMSSV);
 userRouter.get('/get-information', authMiddleware, UserController.getInformation);
 userRouter.put('/reset-password', authMiddleware, UserController.resetPassword);
+userRouter.put('/update-information', authMiddleware, UserController.updateInformation);
 
 export default userRouter;

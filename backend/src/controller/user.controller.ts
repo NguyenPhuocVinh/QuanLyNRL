@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { UserService } from '../services/user.service';
 import { StatusCodes } from 'http-status-codes';
 import { ApiError } from '../utils/api-error.util';
-import { ChangePasswordRequest } from '../types/request.type';
+import { ChangePasswordRequest, UpdateInformationRequest } from '../types/request.type';
 
 
 export class UserController {
@@ -58,14 +58,14 @@ export class UserController {
         }
     }
 
-    // static async updateInformation (req: Request, res: Response) {
-    //     try {
-    //         const userId = req.user._id;
-    //         const updateInformation = req.body;
-    //         const result = await UserService.updateInformation(userId, updateInformation);
-    //         res.status(StatusCodes.OK).json({result, message: 'Your information has been updated successfully'});
-    //     } catch (error: any) {
-    //         res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({error: error.message});
-    //     }
-    // }
+    static async updateInformation (req: Request, res: Response) {
+        try {
+            const userId = req.user._id;
+            const updateInformation: UpdateInformationRequest = req.body;
+            const result = await UserService.updateInformation(userId, updateInformation);
+            res.status(StatusCodes.OK).json({result, message: 'Your information has been updated successfully'});
+        } catch (error: any) {
+            res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({error: error.message});
+        }
+    }
 }
