@@ -91,8 +91,8 @@ export class JoinProgramController {
         try {
             const programId = req.query.programId as string;
             const MSSV = req.query.MSSV as string;
-            const programs = await JoinProgramService.findJoinProgramByMSSVAndProgramId(MSSV, programId);
-            return res.status(StatusCodes.OK).json({programs});
+            const listUser = await JoinProgramService.findJoinProgramByMSSVAndProgramId(MSSV, programId);
+            return res.status(StatusCodes.OK).json({listUser});
         } catch (error: any) {
             res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message})
         }

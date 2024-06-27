@@ -163,15 +163,23 @@ export class JoinProgramService {
 
 
     static async findJoinProgramByMSSVAndProgramId(MSSV: string, programId: string) {
-        const regex = new RegExp(`^${MSSV}`, 'i'); // Tạo biểu thức regex để tìm bắt đầu bằng MSSV
+        const regex = new RegExp(`^${MSSV}`, 'i'); 
 
-        // Tìm tất cả các bản ghi JoinProgram có programId tương ứng
         const joinPrograms = await JoinProgram.find({ programId }).lean();
 
-        // Lọc và trả về những bản ghi mà MSSV bắt đầu bằng chuỗi MSSV nhập vào
-        const userJoinProgram = joinPrograms.filter(program => regex.test(program.MSSV));
+        const userJoinProgram = await Promise.all(joinPrograms
+            .filter(program => regex.test(program.MSSV))
+            .map(async (program) => {
+                const user = await UserService.getUserByMSSV(program.MSSV); 
+                const infoData = getInfoData({
+                    filed: ['_id', 'MSSV', 'fullName', 'point'],
+                    object: user
+                });
+                return {
+                    user: infoData
+                };
+            }));
 
-        // Kiểm tra nếu không tìm thấy bản ghi nào thỏa mãn điều kiện
         if (userJoinProgram.length === 0) {
             throw new ApiError(StatusCodes.NOT_FOUND, 'No users found for the given MSSV and programId');
         }
