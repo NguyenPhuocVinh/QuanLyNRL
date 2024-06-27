@@ -70,4 +70,17 @@ export class SystemController {
         }
     }
 
+    static async getUserById(req: Request, res: Response) {
+        try {
+            const userId = req.query.userId as string;
+            if (!userId) {
+                throw new ApiError(StatusCodes.BAD_REQUEST, 'Missing required userId');
+            }
+            const user = await UserService.getUserById(userId);
+            res.status(StatusCodes.OK).json({user});
+        } catch (error: any) {
+            res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({error: error.message});
+        }
+    }
+
 }

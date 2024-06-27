@@ -10,5 +10,6 @@ systemRouter.post('/login', SystemController.loginAdmin);
 systemRouter.get('/get-all-user', authMiddleware, checkPermission([ROLE_LIST.SUPERADMIN]), SystemController.getAllUser);
 systemRouter.put('/update-user', authMiddleware, checkPermission([ROLE_LIST.SUPERADMIN]), SystemController.updateUser);
 systemRouter.delete('/delete-user', authMiddleware, checkPermission([ROLE_LIST.SUPERADMIN]), SystemController.deleteUser);
+systemRouter.get('/get-user-by-id', authMiddleware, checkPermission([ROLE_LIST.SUPERADMIN]), SystemController.getUserById);
 
 export default systemRouter
