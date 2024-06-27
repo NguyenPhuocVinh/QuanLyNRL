@@ -55,6 +55,7 @@ export class ProposeService {
                     propose.status = 'APPROVED';
                     const [savedPropose, user] = await Promise.all([
                         propose.save(),
+                        JoinProgramService.updateStatusJoinProgram(propose.programId),
                         UserService.updatePointByMSSV(propose.MSSV, program.point)
                     ]);
                     return { propose: savedPropose, user };   
