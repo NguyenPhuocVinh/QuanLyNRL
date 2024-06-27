@@ -49,7 +49,7 @@ export class JoinProgramController {
     static async getJoinProgramByProgramId ( req: Request, res: Response ) {
         try {
             const programId = req.params.programId;
-            const joinProgram = await JoinProgramService.getJoinProgramByProgramId(programId);
+            const joinProgram = await JoinProgramService.getListJoinProgramByProgramId(programId);
             return res.status(StatusCodes.OK).json({joinProgram});
         } catch (error: any) {
             res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message})
@@ -72,6 +72,27 @@ export class JoinProgramController {
             const programId = req.params.programId as String;
             const joinProgram = await JoinProgramService.absentProgram(MSSV, programId);
             return res.status(StatusCodes.OK).json({joinProgram});
+        } catch (error: any) {
+            res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message})
+        }
+    }
+
+    static async getLisgetListJoinProgramByProgramId ( req: Request, res: Response ) {
+        try {
+            const programId = req.params.programId;
+            const joinProgram = await JoinProgramService.getListJoinProgramByProgramId(programId);
+            return res.status(StatusCodes.OK).json({joinProgram});
+        } catch (error: any) {
+            res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message})
+        }
+    }
+
+    static async findJoinProgramByMSSVAndProgramId ( req: Request, res: Response ) {
+        try {
+            const MSSV = req.query.MSSV as string;
+            const programId = req.query.programId as string;
+            const programs = await JoinProgramService.findJoinProgramByMSSVAndProgramId(MSSV, programId);
+            return res.status(StatusCodes.OK).json({programs});
         } catch (error: any) {
             res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message})
         }

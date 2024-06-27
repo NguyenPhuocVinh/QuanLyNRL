@@ -23,6 +23,10 @@ export class UserService {
         return User.findById(id);
     }
 
+    static async getUserByMSSV(MSSV: String) {
+        return User.findOne({ MSSV });
+    }
+
     static async getMSSVByUserId(userId: String) {
         const user = await User.findById(userId) as userModel;
         if (!user) {

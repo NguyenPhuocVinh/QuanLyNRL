@@ -57,7 +57,7 @@ export class NotificationService {
         await UserNotification.insertMany(userNotifications);
     }
 
-    static async markNotificationAsRead (userId: string, notificationId: string) {
+    static async markNotificationAsRead(userId: string, notificationId: string) {
         const userNotification = await UserNotification.findOneAndUpdate(
             { userId: userId, notificationId: notificationId },
             { isRead: true },

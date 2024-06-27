@@ -5,6 +5,7 @@ import { ApiError } from '../utils/api-error.util';
 import { ProgramService } from './program.service';
 import { getInfoData } from '../utils/filter.util';
 
+
 export class JoinProgramService {
     static async createJoinProgram(MSSV: String, programId: any) {
 
@@ -89,7 +90,6 @@ export class JoinProgramService {
             throw new ApiError(StatusCodes.NOT_FOUND, 'Join Programs not found for the given MSSV');
         }
     
-        // Fetch program details for each join program
         const programs = await Promise.all(joinPrograms.map(async (joinProgram) => {
             const program = await ProgramService.getProgramById(joinProgram.programId);
             return {
@@ -118,7 +118,6 @@ export class JoinProgramService {
         // Check if attendance record exists
         await this.checkAttendance(MSSV, programId);
         
-        // Get the program details
         const program = await ProgramService.getProgramById(programId);
         if (!program) {
             throw new ApiError(StatusCodes.NOT_FOUND, 'Program not found');
@@ -130,22 +129,50 @@ export class JoinProgramService {
             throw new ApiError(StatusCodes.NOT_FOUND, 'Join Program not found');
         }
         
-        // Update the status to 'ABSENT' and set the date
         joinProgram.status = 'ABSENT';
         joinProgram.joiningDate = new Date();
         await joinProgram.save();
         
-        // Update the user's points accordingly (assumption: subtract points for absence)
         const updatePointByMSSV = await UserService.updatePointByMSSV(MSSV, -program.point);
         
-        // Extract the relevant info data
         const infoData = getInfoData({
             filed: ['_id', 'MSSV', 'fullName', 'point', 'createdAt'],
             object: updatePointByMSSV
         });
         
-        // Return the updated join program and user info data
         return { joinProgram, infoData };
+    }
+
+    static async getListJoinProgramByProgramId(programId: any) {    
+        const joinPrograms = await JoinProgram.find({ programId }).select('MSSV');
+        //get list info of MSSV
+        const MSSVs = await Promise.all(joinPrograms.map(async (joinProgram) => {
+            const user = await UserService.getUserByMSSV(joinProgram.MSSV);
+
+            const infoData = getInfoData({
+                filed: ['_id', 'MSSV', 'fullName', 'point'],
+                object: user
+            });
+            return infoData;
+        }));
+    
+
+        return MSSVs;
+    }
+
+
+
+    static async findJoinProgramByMSSVAndProgramId(MSSV: string, programId: string) {
+  
+        const regex = new RegExp(MSSV, 'i'); 
+
+        const joinPrograms = await JoinProgram.collection.find({ MSSV: regex, programId: programId }).toArray();
+
+        if (!joinPrograms || joinPrograms.length === 0) {
+            throw new ApiError(StatusCodes.NOT_FOUND, 'Join Program not found');
+        }
+
+        return joinPrograms;
     }
     
 
